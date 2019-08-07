@@ -3,9 +3,9 @@ import { passport as dbPassport } from '../../db';
 import { isDebug, apiEndpoint } from '../../../config/app';
 
 let config = null;
-if (isDebug) {
-  config = require('../../config').default;
-}
+// if (isDebug) {
+//   config = require('../../config').default;
+// }
 
 export default passport => {
   const facebookId =
