@@ -63,21 +63,24 @@ class Signup extends Component {
 
   onSignupSubmit = event => {
     event.preventDefault();
-    const username = this.usernameInput.value;
-    const password = this.passwordInput.value;
-    const { usernameError, passwordError } = getErrorMessages(
-      username,
-      password
-    );
-    const { signUp } = this.props;
-    if (usernameError || passwordError) {
-      this.setState({
-        usernameErrorMessage: usernameError,
-        passwordErrorMessage: passwordError
-      });
-    } else {
-      signUp({ username, password });
-    }
+    console.log(this.props);
+    const { handleSubmit } = this.props;
+    handleSubmit();
+    // const username = this.usernameInput.value;
+    // const password = this.passwordInput.value;
+    // const { usernameError, passwordError } = getErrorMessages(
+    //   username,
+    //   password
+    // );
+    // const { signUp } = this.props;
+    // if (usernameError || passwordError) {
+    //   this.setState({
+    //     usernameErrorMessage: usernameError,
+    //     passwordErrorMessage: passwordError
+    //   });
+    // } else {
+    //   signUp({ username, password });
+    // }
   };
 
   handleKeyPress = event => {
@@ -87,49 +90,49 @@ class Signup extends Component {
   };
 
   render() {
-    const { classes, location } = this.props;
+    const {
+      classes,
+      location,
+      handleChange,
+      handleSubmitSignUpForm,
+      errors
+    } = this.props;
+    console.log(this.props);
     const { usernameErrorMessage, passwordErrorMessage } = this.state;
     return (
       <Layout location={location}>
         <div className={classes.root}>
           <div className={classes.container}>
-            <form className={classes.form}>
+            <form className={classes.form} onSubmit={handleSubmitSignUpForm}>
               <TextField
                 className={classes.textField}
                 required
-                error={usernameErrorMessage.length > 0}
+                error={errors.username}
                 id="username"
                 label="Username"
                 type="username"
-                helperText={usernameErrorMessage}
-                inputRef={input => {
-                  if (input) {
-                    this.usernameInput = input;
-                    setTimeout(() => {
-                      this.usernameInput.focus();
-                    }, 300);
-                  }
-                }}
+                helperText={errors.username}
+                onChange={handleChange}
                 margin="normal"
-                onKeyPress={this.handleKeyPress}
               />
               <TextField
                 className={classes.textField}
                 required
-                error={passwordErrorMessage.length > 0}
+                error={errors.password}
                 id="password"
                 label="Password"
                 type="password"
-                helperText={passwordErrorMessage}
-                inputRef={input => {
-                  this.passwordInput = input;
-                }}
+                helperText={errors.password}
+                onChange={handleChange}
                 margin="normal"
-                onKeyPress={this.handleKeyPress}
               />
             </form>
             <div className={classes.button}>
-              <Button variant="contained" onClick={this.onSignupSubmit}>
+              <Button
+                variant="contained"
+                onClick={handleSubmitSignUpForm}
+                type="submit"
+              >
                 sign up
               </Button>
             </div>

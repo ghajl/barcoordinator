@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Search from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
-import { setPlacesLocation } from '../../data/actions/url';
 import styles from './SearchBarStyles';
 
 function SearchBar({
   currentLocation,
-  setPlacesLocation,
   style,
   className,
-  searchBarRef
+  searchBarRef,
+  history
 }) {
   const [location, setLocation] = useState(currentLocation);
 
@@ -21,16 +20,31 @@ function SearchBar({
     setLocation(currentLocation);
   }, [currentLocation]);
 
+  const [extra, setExtra] = useState('');
+
   const onChange = loc => setLocation(loc);
 
+  const setUrl = () => {
+    history.push(`/places?loc=${location}&bar=show`);
+  };
+
   const handleSelect = loc => {
-    setLocation(loc);
-    setPlacesLocation(loc);
+    if (!extra) {
+      setLocation(loc);
+      setUrl();
+    }
   };
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    setPlacesLocation(location);
+    if (!extra) {
+      setUrl();
+    }
+  };
+
+  const handleExtraChange = event => {
+    event.preventDefault();
+    setExtra(event.target.value);
   };
 
   const classes = makeStyles(styles)();
@@ -60,6 +74,16 @@ function SearchBar({
           onSelect={handleSelect}
           className={classes.autocomplete}
         />
+        <input
+          className={classes.extra}
+          autoComplete="off"
+          type="text"
+          id="extra"
+          name="extra"
+          placeholder="Your extra here"
+          value={extra}
+          onChange={handleExtraChange}
+        />
       </div>
       <IconButton
         className={classes.button}
@@ -73,23 +97,20 @@ function SearchBar({
   );
 }
 
-export default connect(
-  () => ({}),
-  { setPlacesLocation }
-)(SearchBar);
+export default withRouter(SearchBar);
 
 SearchBar.propTypes = {
   className: PropTypes.string,
   style: PropTypes.shape({}),
   searchBarRef: PropTypes.shape({}),
   currentLocation: PropTypes.string,
-  setPlacesLocation: PropTypes.func.isRequired,
-  classes: PropTypes.shape({})
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 SearchBar.defaultProps = {
   className: '',
-  classes: {},
   style: {},
   searchBarRef: null,
   currentLocation: ''

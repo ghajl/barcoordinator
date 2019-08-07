@@ -15,11 +15,13 @@ import Places from './Places';
 class PlacesContainer extends Component {
   constructor(props) {
     super(props);
-    const { location, replaceLocation } = props;
+    const { location, replaceLocation, history } = props;
     this.urlQuery = qs.parse(location.search);
+    console.log(history);
     // if there isn't parameter 'loc' in the url - replace url with default location
     if (!this.urlQuery.loc) {
-      replaceLocation(defaultLocation.address, location.pathname);
+      // replaceLocation(defaultLocation.address, location.pathname);
+      history.replace(`/places?loc=${defaultLocation.address}&bar=show`);
     }
     this.barCards = {};
     this.searchBarRef = React.createRef();
@@ -38,7 +40,13 @@ class PlacesContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { location, showBars, replaceLocation, mapService } = this.props;
+    const {
+      location,
+      showBars,
+      replaceLocation,
+      mapService,
+      history
+    } = this.props;
     if (
       (location.search != null &&
         location.search !== prevProps.location.search) ||
@@ -50,7 +58,8 @@ class PlacesContainer extends Component {
       if (this.urlQuery.loc && mapService) {
         showBars(this.urlQuery.loc);
       } else {
-        replaceLocation(defaultLocation.address, location.pathname);
+        history.replace(`/places?loc=${defaultLocation.address}&bar=show`);
+        // replaceLocation(defaultLocation.address, location.pathname);
       }
     }
   }
@@ -148,7 +157,6 @@ const mapStateToProps = state => {
     lat: state.reducer.location.lat,
     lng: state.reducer.location.lng,
     loading: state.reducer.user.isWaiting,
-    location: state.router.location,
     mapService: state.reducer.map.service
   };
 };

@@ -1,41 +1,32 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import styles from './CardStyles';
 
-const styles = {
-  content: {
-    padding: '1rem',
-    fontSize: '30px',
-    color: 'white'
-  }
-};
+const useStyles = makeStyles(styles);
 
-class CardContent extends PureComponent {
-  render() {
-    const { classes, style, className, children, ...props } = this.props;
-    return (
-      <div
-        className={`${classes.content} ${className}`}
-        style={{ ...style }}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
+function CardContent({ style, className, children, ...props }) {
+  const classes = useStyles();
+  return (
+    <div
+      className={`${classes.content} ${className}`}
+      style={{ ...style }}
+      {...props}
+    >
+      {children}
+    </div>
+  );
 }
 
-export default withStyles(styles)(CardContent);
+export default CardContent;
 
 CardContent.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
-  classes: PropTypes.shape({}),
   style: PropTypes.shape({})
 };
 
 CardContent.defaultProps = {
   className: '',
-  classes: {},
   style: {}
 };

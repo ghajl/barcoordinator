@@ -17,7 +17,7 @@ initExpress(app, passport);
 initRoutes(app, passport);
 
 app.get('*', async (req, res) => {
-  const { html, context } = await createApp(req.path, req.query, req.user);
+  const { html, context } = await createApp(req.url, req.query, req.user);
   const { url = null } = context;
   if (url) {
     res.writeHead(302, {

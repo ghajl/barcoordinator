@@ -114,7 +114,7 @@ export function showVisitorsList(barId) {
   };
 }
 
-export function addBar(barId, fromLogin = false) {
+export function addBar(barId, history, fromLogin = false) {
   return (dispatch, getState) => {
     const { userId } = getState().reducer.user;
     const { bars } = getState().reducer.location;
@@ -132,7 +132,7 @@ export function addBar(barId, fromLogin = false) {
       .then(() => {
         dispatch(addBarSuccess(data.barId, successMessage));
         if (fromLogin) {
-          dispatch(push('/return-from-success-login'));
+          history.push({ pathname: '/return-from-success-login' });
         }
       })
       .catch(err => {

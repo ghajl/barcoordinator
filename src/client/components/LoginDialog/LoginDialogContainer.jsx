@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
+import { compose } from 'recompose';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -43,7 +45,7 @@ class LoginDialogContainer extends Component {
   handleSubmitLogin = data => {
     const username = (data && data.username) || '';
     const password = (data && data.password) || '';
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     const { usernameError, passwordError } = getErrorMessages(
       username,
       password
@@ -56,18 +58,21 @@ class LoginDialogContainer extends Component {
     } else {
       this.setState({ usernameErrorText: '', passwordErrorText: '' });
       dispatch(
-        manualLogin({
-          username,
-          password
-        })
+        manualLogin(
+          {
+            username,
+            password
+          },
+          history
+        )
       );
     }
   };
 
   goToSignUp = () => {
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     dispatch(closeLoginDialog());
-    dispatch(toSignUp());
+    history.push({ pathname: '/signup' });
   };
 
   handleCloseLogin = () => {
@@ -155,13 +160,19 @@ class LoginDialogContainer extends Component {
   }
 }
 
-export default connect(({ reducer }) => ({
-  open: reducer.loginDialogOpen
-}))(withStyles(styles)(LoginDialogContainer));
+export default compose(
+  withRouter,
+  connect(({ reducer }) => ({
+    open: reducer.loginDialogOpen
+  })),
+  withStyles(styles)
+)(LoginDialogContainer);
 
 LoginDialogContainer.propTypes = {
   classes: PropTypes.shape({
     fbLogin: PropTypes.string.isRequired
   }).isRequired,
-  open: PropTypes.bool.isRequired
+  open: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({}).isRequired
 };

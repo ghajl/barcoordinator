@@ -55,7 +55,7 @@ function logoutError() {
   return { type: actionTypes.LOGOUT_ERROR_USER };
 }
 
-export function manualLogin(data) {
+export function manualLogin(data, history) {
   return (dispatch, getState) => {
     dispatch(beginLogin());
     return axiosInstance
@@ -73,7 +73,7 @@ export function manualLogin(data) {
         if (getState().reducer.guestBar) {
           const barId = getState().reducer.guestBar;
           const fromLogin = true;
-          dispatch(addBar(barId, fromLogin));
+          dispatch(addBar(barId, history, fromLogin));
         }
       })
       .catch(() => {
@@ -82,7 +82,7 @@ export function manualLogin(data) {
   };
 }
 
-export function signUp(data) {
+export function signUp(data, history) {
   return (dispatch, getState) => {
     dispatch(beginSignUp());
     return axiosInstance
@@ -99,7 +99,7 @@ export function signUp(data) {
         if (getState().reducer.guestBar) {
           const barId = getState().reducer.guestBar;
           const fromSignup = true;
-          dispatch(addBar(barId, fromSignup));
+          dispatch(addBar(barId, history, fromSignup));
         }
       })
       .catch(err => {

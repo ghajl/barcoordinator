@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Done from '@material-ui/icons/Done';
@@ -27,7 +28,8 @@ function BarCard({
   authenticated,
   isBarInBasket,
   countWithoutUser,
-  shouldShowVisitorsList
+  shouldShowVisitorsList,
+  history
 }) {
   const cardRef = useRef(null);
 
@@ -40,7 +42,7 @@ function BarCard({
   const add = event => {
     event.preventDefault();
     event.stopPropagation();
-    addBar(barId);
+    addBar(barId, history);
   };
 
   const show = event => {
@@ -121,7 +123,7 @@ function BarCard({
   );
 }
 
-export default BarCard;
+export default withRouter(BarCard);
 
 BarCard.propTypes = {
   showVisitorsList: PropTypes.func.isRequired,
@@ -137,7 +139,8 @@ BarCard.propTypes = {
   authenticated: PropTypes.bool.isRequired,
   loginAndAdd: PropTypes.func.isRequired,
   countWithoutUser: PropTypes.number,
-  shouldShowVisitorsList: PropTypes.bool
+  shouldShowVisitorsList: PropTypes.bool,
+  history: PropTypes.shape({}).isRequired
 };
 
 BarCard.defaultProps = {

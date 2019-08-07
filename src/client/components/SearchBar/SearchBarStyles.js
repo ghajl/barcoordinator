@@ -22,5 +22,15 @@ export default theme => ({
     width: 36,
     height: 36
   },
-  autocomplete: {}
+  autocomplete: {},
+  extra: {
+    opacity: 0,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: 0,
+    width: 0,
+    padding: 0,
+    zIndex: -999
+  }
 });

@@ -9,19 +9,32 @@ import MessageDialog from './components/MessageDialog';
 import VisitorsListDialog from './components/VisitorsListDialog';
 
 class Root extends Component {
+  constructor(props) {
+    super(props);
+    this.approvedReturnPath = ['places'];
+    const { dispatch, history } = props;
+    const { location } = history;
+    const { pathname, search } = location;
+    for (let i = 0; i < this.approvedReturnPath.length; i++) {
+      if (pathname === `/${this.approvedReturnPath[i]}`) {
+        dispatch(saveReturnTo(`${pathname}${search}`));
+        break;
+      }
+    }
+  }
+
   componentDidMount = () => {
-    const approvedReturnPath = ['places'];
     const { dispatch, history } = this.props;
-    console.log(history);
     this.unlisten = history.listen(location => {
       const { pathname, search } = location;
-      for (let i = 0; i < approvedReturnPath.length; i++) {
-        if (pathname === `/${approvedReturnPath[i]}`) {
+      for (let i = 0; i < this.approvedReturnPath.length; i++) {
+        if (pathname === `/${this.approvedReturnPath[i]}`) {
           dispatch(saveReturnTo(`${pathname}${search}`));
           break;
         }
       }
     });
+
     const canHover = !matchMedia('(hover: none)').matches;
     if (canHover) {
       document.body.classList.add('can-hover');
@@ -59,5 +72,14 @@ export default withRouter(
 
 Root.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  history: PropTypes.shape({}).isRequired
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+      search: PropTypes.string.isRequired
+    }).isRequired,
+    listen: PropTypes.func.isRequired
+  }).isRequired,
+  route: PropTypes.shape({
+    routes: PropTypes.array.isRequired
+  }).isRequired
 };

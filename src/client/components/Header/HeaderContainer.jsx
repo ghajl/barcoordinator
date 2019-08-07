@@ -46,11 +46,11 @@ class HeaderContainer extends Component {
   };
 
   handleSignUpClick = event => {
-    const { location, toSignUp } = this.props;
+    const { location, history } = this.props;
     event.preventDefault();
     this.handleMenuClose();
     if (location.pathname !== '/signup') {
-      toSignUp(location);
+      history.push({ pathname: '/signup' });
     }
   };
 
@@ -122,6 +122,7 @@ export default compose(
 
 HeaderContainer.propTypes = {
   location: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({}).isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   username: PropTypes.string,
   facebookProfile: PropTypes.shape({

@@ -1,38 +1,28 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter as Router } from 'react-router-dom';
-import { matchRoutes, renderRoutes } from 'react-router-config';
-import { ConnectedRouter } from 'connected-react-router';
+import { renderRoutes } from 'react-router-config';
 import { Provider } from 'react-redux';
 // import Helmet from 'react-helmet';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles';
 import red from '@material-ui/core/colors/red';
 import serialize from 'serialize-javascript';
-import { createMemoryHistory } from 'history';
 import routes from '../util/routes';
-import { configureStore } from '../client/data/store';
+import configureStore from '../client/data/store';
 import { setUserData } from '../client/data/actions/user';
 
 export default async (location, query, user) => {
-  const history = createMemoryHistory();
-  const { store } = configureStore(history);
+  const store = configureStore();
   if (user) {
     store.dispatch(setUserData(user));
   }
-  // const currentRoute = matchRoutes(routes, location);
-  // const need = currentRoute.map(({ route }) => {
-  //   if (route.loadData) {
-  //     return route.loadData(store, query);
-  //   }
-  //   return Promise.resolve(null);
-  // });
-  // await Promise.all(need);
+
   const preloadedState = store.getState();
 
   const context = {};
   const sheets = new ServerStyleSheets();
-  // const sheetsManager = new Map();
+
   const theme = createMuiTheme({
     palette: {
       primary: { main: '#1e90ff' },
@@ -40,13 +30,12 @@ export default async (location, query, user) => {
       type: 'light'
     }
   });
-  // const generateClassName = createGenerateClassName();
 
   const reactDom = renderToString(
     sheets.collect(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <Router history={history} location={location} context={context}>
+          <Router location={location} context={context}>
             {renderRoutes(routes)}
           </Router>
         </Provider>

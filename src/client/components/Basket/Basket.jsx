@@ -14,13 +14,13 @@ import Item from './Item';
 
 const useStyles = makeStyles(styles);
 
-function Basket({ removeBar, basketList, anchorEl, open, onClose }) {
+function Basket({ removeBarFomBasket, basketList, anchorEl, open, onClose }) {
   const classes = useStyles();
 
   const remove = (barId, placeId) => event => {
     event.preventDefault();
     event.stopPropagation();
-    removeBar(barId, placeId);
+    removeBarFomBasket(barId, placeId);
   };
 
   return (
@@ -89,20 +89,19 @@ function Basket({ removeBar, basketList, anchorEl, open, onClose }) {
 export default connect(
   null,
   {
-    removeBar
+    removeBarFomBasket: (barId, placeId) => removeBar(barId, placeId)
   }
 )(Basket);
 
 Basket.propTypes = {
   basketList: PropTypes.arrayOf(PropTypes.shape({})),
   onClose: PropTypes.func.isRequired,
-  removeBar: PropTypes.func.isRequired,
+  removeBarFomBasket: PropTypes.func.isRequired,
   anchorEl: PropTypes.shape({}),
   open: PropTypes.bool.isRequired
 };
 
 Basket.defaultProps = {
   basketList: [],
-  classes: {},
   anchorEl: null
 };

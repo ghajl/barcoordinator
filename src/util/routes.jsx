@@ -12,13 +12,6 @@ const routes = [
     component: Root,
     routes: [
       {
-        path: '/',
-        exact: true,
-        component: () => (
-          <Redirect to={`/places?loc=${defaultLocation.address}&bar=show`} />
-        )
-      },
-      {
         path: '/places',
         component: Places,
         exact: true
