@@ -7,9 +7,9 @@ import connectMongo from 'connect-mongo';
 import { isDebug, isProduction } from '../../config/app';
 
 let config = null;
-if (isDebug) {
-  config = require('../config').default;
-}
+// if (isDebug) {
+//   config = require('../config').default;
+// }
 
 export default (app, passport) => {
   if (isProduction) {
