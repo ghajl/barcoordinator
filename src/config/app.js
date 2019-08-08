@@ -7,7 +7,7 @@ const isClient = typeof window !== 'undefined';
 const basename = '/barcoordinator';
 const apiEndpoint = isDebug
   ? 'http://localhost:4000'
-  : 'https://michaelumansky.com/barcoordinator';
+  : 'https://barcoordinator.azurewebsites.net';
 const axiosInstance = axios.create({
   baseURL: apiEndpoint,
   headers: { 'cache-control': 'no-cache' }
