@@ -5,7 +5,7 @@ import styles from './FooterStyles';
 
 const useStyles = makeStyles(styles);
 
-const Footer = () => {
+function Footer() {
   const classes = useStyles();
 
   return (
@@ -50,6 +50,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;
