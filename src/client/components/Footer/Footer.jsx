@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import styles from './FooterStyles';
 
+const useStyles = makeStyles(styles);
+
 const Footer = () => {
-  const classes = makeStyles(styles)();
+  const classes = useStyles();
 
   return (
     <footer className={classes.wrapper}>
