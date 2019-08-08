@@ -5,7 +5,7 @@ import { HeaderContainer as Header } from '../Header';
 import Footer from '../Footer';
 import styles from './LayoutStyles';
 
-const Layout = ({ classes, children }) => {
+const Layout = ({ children }) => {
   const classes = makeStyles(styles)();
   return (
     <Fragment>
