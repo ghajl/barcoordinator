@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 import { HeaderContainer as Header } from '../Header';
 import Footer from '../Footer';
 import styles from './LayoutStyles';
 
 const Layout = ({ classes, children }) => {
+  const classes = makeStyles(styles)();
   return (
     <Fragment>
       <Header />
@@ -15,7 +16,7 @@ const Layout = ({ classes, children }) => {
   );
 };
 
-export default withStyles(styles)(Layout);
+export default Layout;
 
 Layout.propTypes = {
   classes: PropTypes.shape({}).isRequired,

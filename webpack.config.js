@@ -48,7 +48,7 @@ const browserConfig = {
     new webpack.DefinePlugin({
       __isBrowser__: 'true'
     }),
-    new Visualizer(),
+    // new Visualizer(),
     new MiniCssExtractPlugin({
       filename: 'style.css'
     })
