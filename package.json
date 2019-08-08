@@ -9,8 +9,8 @@
   "scripts": {
     "test": "jest",
     "dev": "set NODE_ENV=development&& webpack --mode development --watch",
-    "build": "set NODE_ENV=production&& webpack --mode production",
-    "start": "set NODE_ENV=production&& node server/server.js",
+    "build": "webpack --mode production",
+    "start": "node server/server.js",
     "lint": "eslint ."
   },
   "author": "",
