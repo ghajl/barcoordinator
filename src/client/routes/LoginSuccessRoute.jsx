@@ -11,6 +11,7 @@ import {
 } from '../data/actions/user';
 
 function LoginSuccessRoute({ location, dispatch, returnPath }) {
+  console.log('LoginSuccessRoute');
   const loginParams = qs.parse(location.search);
   if (typeof loginParams.addOperation !== 'undefined') {
     dispatch(facebookLoginSuccess());
