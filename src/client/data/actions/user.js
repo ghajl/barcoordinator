@@ -274,7 +274,7 @@ export function facebookLoginAddError() {
   };
 }
 
-export function setUserData({ username, profile, id: userId, bars }) {
+export function setUserData({ username = null, profile, id: userId, bars }) {
   return {
     type: actionTypes.SET_USER_DATA,
     username,
