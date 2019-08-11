@@ -89,5 +89,10 @@ export default {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     zIndex: 2000
+  },
+  '@media (max-width: 600px)': {
+    wrapper: {
+      marginTop: '50px'
+    }
   }
 };

@@ -47,6 +47,9 @@ export default async (location, query, user) => {
   const html = `<!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=0, initial-scale=1, minimum-scale=1, width=device-width, height=device-height">
+    <title>Nightlife Coordination App</title>
     <style type="text/css" id="server-side-styles">
       ${css}
     </style>
