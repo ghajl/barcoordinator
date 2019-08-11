@@ -224,7 +224,7 @@ export async function authFacebookReturn(req, res) {
   if (addOperationSuccess) {
     query = `${query}&addOperationSuccess=${addOperationSuccess}`;
   }
-  return res.redirect(`${basename}/return-from-success-login${query}`);
+  return res.redirect(`/return-from-success-login${query}`);
 }
 
 export async function getParams(req, res, next) {

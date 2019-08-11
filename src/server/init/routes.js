@@ -27,7 +27,7 @@ export default (app, passport) => {
   app.get(
     '/auth/facebook/callback',
     passport.authenticate('facebook', {
-      failureRedirect: `${basename}/signup`
+      failureRedirect: '/signup'
     }),
     authFacebookReturn
   );
