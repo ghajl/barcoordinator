@@ -5,7 +5,7 @@ export default {
     flex: '1 0 auto',
     display: 'flex',
     position: 'relative',
-    '@media (max-width: 640px)': {
+    '@media (max-width: 480px)': {
       flexDirection: 'column'
     },
     marginTop: '60px',
@@ -19,7 +19,7 @@ export default {
     width: '100%',
     position: 'relative',
     backgroundColor: '#193150',
-    '@media (min-width: 641px)': {
+    '@media (min-width: 481px)': {
       maxWidth: '400px',
       width: '50%',
       'overflow-y': 'scroll',
@@ -28,7 +28,7 @@ export default {
         10
       )}px - ${parseInt(styleVariables.headerHeightLg, 10)}px)`
     },
-    '@media (max-width: 640px)': {
+    '@media (max-width: 480px)': {
       flex: '1 0 auto'
     }
   },
@@ -41,7 +41,7 @@ export default {
       styleVariables.footerHeightLg,
       10
     )}px - ${parseInt(styleVariables.headerHeightLg, 10)}px)`,
-    '@media (max-width: 640px)': {
+    '@media (max-width: 480px)': {
       width: 0,
       height: 0
     }
@@ -69,7 +69,7 @@ export default {
     backgroundColor: 'black',
     cursor: 'pointer',
     boxShadow: '1px 1px 6px rgba(0, 0, 0, .5)',
-    '@media (max-width: 640px)': {
+    '@media (max-width: 480px)': {
       bottom: '10%',
       right: '10%'
     }
@@ -89,10 +89,5 @@ export default {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     zIndex: 2000
-  },
-  '@media (max-width: 600px)': {
-    wrapper: {
-      marginTop: '50px'
-    }
   }
 };

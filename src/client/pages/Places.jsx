@@ -10,7 +10,7 @@ import Layout from '../components/Layout';
 import { PlacesContainer } from '../components/Places';
 
 export default () => (
-  <Layout id="PageId">
+  <Layout>
     <PlacesContainer />
   </Layout>
 );

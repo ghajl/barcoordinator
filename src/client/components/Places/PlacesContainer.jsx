@@ -106,13 +106,11 @@ class PlacesContainer extends Component {
   };
 
   scrollToTop = innerWidth => {
-    let id;
-    if (innerWidth <= 640) {
-      id = 'PageId';
+    if (innerWidth <= 480) {
+      scroll.scrollToTop();
     } else {
-      id = 'ListId';
+      scroll.scrollToTop({ containerId: 'ListId' });
     }
-    scroll.scrollToTop({ containerId: id });
   };
 
   handleScroll = () => {

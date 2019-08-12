@@ -4,7 +4,7 @@ export default {
     width: '100%',
     display: 'flex',
     'flex-direction': 'column',
-    '@media (max-width: 640px)': {
+    '@media (max-width: 480px)': {
       flexShrink: 0
     }
   }

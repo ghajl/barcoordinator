@@ -52,22 +52,30 @@ class Root extends Component {
   };
 
   render() {
-    const { route } = this.props;
+    const {
+      route,
+      loginDialogOpen,
+      messageDialogOpen,
+      visitorsLlistDialogOpen
+    } = this.props;
     return (
       <Fragment>
         <Switch>{renderRoutes(route.routes)}</Switch>
-        <LoginDialog />
-        <MessageDialog />
-        <VisitorsListDialog />
+        {!!loginDialogOpen && <LoginDialog />}
+        {!!messageDialogOpen && <MessageDialog />}
+        {!!visitorsLlistDialogOpen && <VisitorsListDialog />}
       </Fragment>
     );
   }
 }
 
 export default withRouter(
-  connect(({ reducer }) => {
-    return { userId: reducer.user.userId };
-  })(Root)
+  connect(({ reducer }) => ({
+    userId: reducer.user.userId,
+    loginDialogOpen: reducer.loginDialogOpen,
+    messageDialogOpen: reducer.messageDialogOpen,
+    visitorsLlistDialogOpen: reducer.listDialogOpen
+  }))(Root)
 );
 
 Root.propTypes = {
@@ -81,5 +89,8 @@ Root.propTypes = {
   }).isRequired,
   route: PropTypes.shape({
     routes: PropTypes.array.isRequired
-  }).isRequired
+  }).isRequired,
+  loginDialogOpen: PropTypes.bool.isRequired,
+  messageDialogOpen: PropTypes.bool.isRequired,
+  visitorsLlistDialogOpen: PropTypes.bool.isRequired
 };
