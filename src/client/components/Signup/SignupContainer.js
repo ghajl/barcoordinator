@@ -6,17 +6,6 @@ import Signup from './Signup';
 import { signUp } from '../../data/actions/user';
 import configFormik from '../../helpers/configFormik';
 
-const handleSubmitForm = func => event => {
-  console.log(func);
-  event.preventDefault();
-  func();
-};
-
-const handleKeyPress = func => event => {
-  if (event.key === 'Enter') {
-    func(event);
-  }
-};
 export default compose(
   connect(
     null,
@@ -24,10 +13,18 @@ export default compose(
   ),
   withRouter,
   withFormik(configFormik),
-  mapProps(({ handleSubmit, submitData, history, ...rest }) => {
-    return { handleSubmitForm: handleSubmitForm(handleSubmit), ...rest };
-  }),
+  mapProps(({ handleSubmit, submitData, history, ...rest }) => ({
+    handleSubmitForm: event => {
+      event.preventDefault();
+      handleSubmit();
+    },
+    ...rest
+  })),
   withProps(({ handleSubmitForm: onSubmitForm }) => ({
-    handleKeyPress: handleKeyPress(onSubmitForm)
+    handleKeyPress: event => {
+      if (event.key === 'Enter') {
+        onSubmitForm(event);
+      }
+    }
   }))
 )(Signup);

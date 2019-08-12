@@ -5,7 +5,6 @@ import Signup from '../pages/Signup';
 import Places from '../pages/Places';
 
 const SignupRoute = ({ authenticated }) => {
-  console.log(authenticated);
   return authenticated ? <Places /> : <Signup />;
 };
 

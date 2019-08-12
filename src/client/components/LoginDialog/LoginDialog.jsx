@@ -2,16 +2,21 @@ import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/styles';
 import { LoginFbContainer as LoginFb } from '../LoginFb';
-import Layout from '../Layout';
-import styles from './SignupStyles';
+import styles from './LoginDialogStyles';
 
-function Signup({
-  location,
+function LoginDialog({
+  open,
   handleChange,
   handleSubmitForm,
   handleKeyPress,
+  handleClose,
+  toSignUp,
   errors
 }) {
   const classes = makeStyles(styles)();
@@ -26,12 +31,12 @@ function Signup({
   }, []);
 
   return (
-    <Layout location={location}>
-      <div className={classes.root}>
-        <div className={classes.container}>
-          <form className={classes.form}>
+    <div>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle id="form-dialog-title">Log in</DialogTitle>
+        <DialogContent>
+          <form>
             <TextField
-              className={classes.textField}
               required
               inputRef={usernameInput}
               error={errors.username}
@@ -42,9 +47,9 @@ function Signup({
               onChange={handleChange}
               onKeyPress={handleKeyPress}
               margin="normal"
+              fullWidth
             />
             <TextField
-              className={classes.textField}
               required
               error={errors.password}
               id="password"
@@ -54,29 +59,32 @@ function Signup({
               onChange={handleChange}
               onKeyPress={handleKeyPress}
               margin="normal"
+              fullWidth
             />
           </form>
-          <div className={classes.button}>
-            <Button
-              variant="contained"
-              onClick={handleSubmitForm}
-              type="submit"
-            >
-              sign up
-            </Button>
-          </div>
-          <div className={classes.fbLogin}>
-            <LoginFb />
-          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSubmitForm} color="primary">
+            Log in
+          </Button>
+          <Button onClick={() => toSignUp()} color="primary">
+            Or, sign up
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+        <div className={classes.fbLogin}>
+          <LoginFb />
         </div>
-      </div>
-    </Layout>
+      </Dialog>
+    </div>
   );
 }
 
-export default Signup;
+export default LoginDialog;
 
-Signup.propTypes = {
+LoginDialog.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmitForm: PropTypes.func.isRequired,
   handleKeyPress: PropTypes.func.isRequired,
