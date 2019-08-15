@@ -8,9 +8,9 @@ export default {
     '@media (max-width: 480px)': {
       flexDirection: 'column'
     },
-    marginTop: '60px',
+    marginTop: `${parseInt(styleVariables.headerHeightLg, 10)}px`,
     '@media (max-width: 600px)': {
-      marginTop: '50px'
+      marginTop: `${parseInt(styleVariables.headerHeightSm, 10)}px`
     }
   },
   listWrapper: {
@@ -21,8 +21,14 @@ export default {
     backgroundColor: '#193150',
     '@media (min-width: 481px)': {
       maxWidth: '400px',
-      width: '50%',
+      width: '40%',
       'overflow-y': 'scroll',
+      height: `calc(100vh - ${parseInt(
+        styleVariables.footerHeightLg,
+        10
+      )}px - ${parseInt(styleVariables.headerHeightSm, 10)}px)`
+    },
+    '@media (min-width: 601px)': {
       height: `calc(100vh - ${parseInt(
         styleVariables.footerHeightLg,
         10
@@ -37,13 +43,21 @@ export default {
   },
   map: {
     flexGrow: 1,
-    height: `calc(100vh - ${parseInt(
-      styleVariables.footerHeightLg,
-      10
-    )}px - ${parseInt(styleVariables.headerHeightLg, 10)}px)`,
-    '@media (max-width: 480px)': {
-      width: 0,
-      height: 0
+    width: 0,
+    height: 0,
+    '@media (min-width: 481px)': {
+      width: 'auto',
+
+      height: `calc(100vh - ${parseInt(
+        styleVariables.footerHeightLg,
+        10
+      )}px - ${parseInt(styleVariables.headerHeightSm, 10)}px)`
+    },
+    '@media (min-width: 601px)': {
+      height: `calc(100vh - ${parseInt(
+        styleVariables.footerHeightLg,
+        10
+      )}px - ${parseInt(styleVariables.headerHeightLg, 10)}px)`
     }
   },
   upButtonWrapper: {

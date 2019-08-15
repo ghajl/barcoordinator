@@ -1,7 +1,7 @@
 const styleVariables = {
   footerHeightSm: 118,
   footerHeightLg: 59,
-  headerHeightSm: 56,
+  headerHeightSm: 48,
   headerHeightLg: 64
 };
 
