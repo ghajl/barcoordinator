@@ -24,7 +24,7 @@ export default {
       width: '40%',
       'overflow-y': 'scroll',
       height: `calc(100vh - ${parseInt(
-        styleVariables.footerHeightLg,
+        styleVariables.footerHeightSm,
         10
       )}px - ${parseInt(styleVariables.headerHeightSm, 10)}px)`
     },
@@ -49,7 +49,7 @@ export default {
       width: 'auto',
 
       height: `calc(100vh - ${parseInt(
-        styleVariables.footerHeightLg,
+        styleVariables.footerHeightSm,
         10
       )}px - ${parseInt(styleVariables.headerHeightSm, 10)}px)`
     },
@@ -69,7 +69,7 @@ export default {
     position: 'relative',
     width: 0,
     height: 0,
-    '@media (min-width: 641px)': {
+    '@media (min-width: 481px)': {
       width: '52px',
       height: '52px',
       position: 'absolute'
